@@ -11,9 +11,10 @@ function App() {
       redirect: 'follow'
     };
     
-    fetch(`https://www.googleapis.com/youtube/v3?part=snippet&maxResults=25&q=${query}&key=AIzaSyASspWWIRU-7ppd8LxLgDTmMsS5VXkp3Po`, requestOptions)
+    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${query}&type=video&key=AIzaSyASspWWIRU-7ppd8LxLgDTmMsS5VXkp3Po`, requestOptions)
       .then(response => response.json())
-      .then(result => setVideos(result.items))
+      .then(result => result.items.map(item => ({...item , id: item.id.videoId})))
+      .then(items => setVideos(items))
       .catch(error => console.log('error', error));
   };
   useEffect(() => {
