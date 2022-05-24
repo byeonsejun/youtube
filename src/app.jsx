@@ -12,7 +12,10 @@ function App({youtube}) {
     setSelectedVideo(video);
   };
   const search = query => {
-    youtube.search(query) .then(videos => setVideos(videos));
+    setSelectedVideo(null);
+    youtube
+    .search(query) 
+    .then(videos => setVideos(videos));
   };
   useEffect(() => {
     youtube.mostPopular().then(videos => setVideos(videos));
